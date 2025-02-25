@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends - Respawn Inhibitorów</title>
+    <style>
+        body {
+            background-color: transparent;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .inhibitor {
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            color: #ffffff;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blue {
+            background: rgb(14,14,1);
+            background: linear-gradient(90deg, rgba(14,14,1,1) 0%, rgba(233,198,25,1) 100%);
+        }
+
+        .red {
+            background: rgb(18,2,2);
+            background: linear-gradient(90deg, rgba(18,2,2,1) 0%, rgba(201,18,18,1) 100%);
+        }
+
+        .blue-container {
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .red-container {
+            margin-top: 10px;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
+    <script>
+        function updateTimers() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    for (let inhib in data) {
+                        document.getElementById(inhib.replace(' ', '-')).innerText = data[inhib];
+                    }
+                })
+                .catch(error => console.error('Błąd w pobieraniu danych:', error));
+        }
+
+        setInterval(updateTimers, 1000);
+        window.onload = updateTimers;
+    </script>
+</head>
+<body>
+    <div class="container blue-container">
+        <div class="inhibitor blue">
+            <img src="../static/icon-position-top-blue.png" alt="Blue Top" class="icon">
+            <span id="Blue-top">0:00</span>
+            <img src="../static/icon-position-middle-blue.png" alt="Red Top" class="icon">
+            <span id="Blue-mid">0:00</span>
+            <img src="../static/icon-position-bottom-blue.png" alt="Red Top" class="icon">
+            <span id="Blue-bot">0:00</span>
+        </div>
+</div>
+    <div class="container red-container">
+        <div class="inhibitor red">
+            <img src="../static/icon-position-top-blue.png" alt="Red Top" class="icon">
+            <span id="Red-top">0:00</span>
+            <img src="../static/icon-position-middle-blue.png" alt="Red Top" class="icon">
+            <span id="Red-mid">0:00</span>
+            <img src="../static/icon-position-bottom-blue.png" alt="Red Top" class="icon">
+            <span id="Red-bot">0:00</span>
+        </div>
+</div>
+
+</body>
+</html>
